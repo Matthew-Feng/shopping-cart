@@ -1,53 +1,32 @@
 package org.example;
 
-import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Cart {
 
-    private final static int PRICE_SCALE = 2;
+    private List<Product> products = new LinkedList<>();
 
-    private final static int ROUNDING_MODE = BigDecimal.ROUND_HALF_UP;
-
-    private final static double TAX_RATE = 0.125;
-
-
-    private List<Product> productList = new LinkedList<>();
-
-    public List<Product> getProductList() {
-        return productList;
+    public List<Product> getProducts() {
+        return Collections.unmodifiableList(products);
     }
 
     public void add(Product product) {
         if (product == null)
             throw new IllegalArgumentException("Product can not be Null");
-        if (product.getPrice() == null)
-            throw new IllegalArgumentException("Product should have price");
-        if (product.getPrice().compareTo(BigDecimal.ZERO) < 0)
-            throw new IllegalArgumentException("Product's price should not be negative");
-        if (product.getName() == null || product.getName().length() < 1)
-            throw new IllegalArgumentException("Product should have a valid name");
-        this.productList.add(product);
+
+        this.products.add(product);
     }
 
     public int size() {
-        return productList.size();
+        return products.size();
     }
 
-    public BigDecimal getTotalNetPrice() {
-        return BigDecimal.valueOf(getTotalNetPriceInDouble()).setScale(PRICE_SCALE, ROUNDING_MODE);
-    }
+    public void add(Product product, int number) {
+        for (int i = 0; i < number; i++) {
+            this.add(product);
 
-    public BigDecimal getTotalPrice() {
-        return BigDecimal.valueOf(getTotalNetPriceInDouble() * (1 + TAX_RATE)).setScale(PRICE_SCALE, ROUNDING_MODE);
-    }
-
-    public BigDecimal getTotalSalesTax() {
-        return BigDecimal.valueOf(getTotalNetPriceInDouble() * TAX_RATE).setScale(PRICE_SCALE, ROUNDING_MODE);
-    }
-
-    private Double getTotalNetPriceInDouble() {
-        return productList.stream().map(Product::getPrice).mapToDouble(BigDecimal::doubleValue).sum();
+        }
     }
 }
