@@ -1,10 +1,11 @@
-# shopping cart
-Java program with basic shopping cart function and price calculation logic. 
+# Shopping Cart
+Java program with basic shopping cart function and price calculation logic. Some test cases are included. 
 It has simple functions: 
 
-    1 Cart add product, return products in cart.
-    2 Offer has discount on applicable products.
-    3 PriceService calulate total price base on given tax rate, offer.
+    0 Creating valid Product
+    1 Adding Product to Cart, return products in cart.
+    2 Discount Offer has discount on applicable products.
+    3 PriceService calulates total price base on given tax rate, offer.
 
 ## Requirement
 
